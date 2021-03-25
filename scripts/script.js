@@ -6,8 +6,8 @@ const items = [
   { name: 'ayam-goreng', price: 6000 },
   { name: 'ayam-bakar', price: 7000 },
   { name: 'ayam-krispi', price: 8000 },
-  { name: 'nasi', price: 9000 },
   { name: 'ayam-geprek', price: 11000 },
+  { name: 'nasi', price: 9000 },
   { name: 'nasi-kuning', price: 10100 },
 ]
 

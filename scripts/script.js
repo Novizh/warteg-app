@@ -105,7 +105,7 @@ function addItems(itemName, itemButton, itemPrice) {
 function createDeleteButton(parent) {
   let deleteButton = document.createElement('button')
   deleteButton.innerHTML = 'Remove'
-  var styleButton = "font-family:nunito; color: #fff; background-color: #1cc88a;  border-color: #1cc88a; font-weight:400; text-align:center; margin: auto; display:flex; border-radius: 8px; padding:5px";
+  var styleButton = "font-family:inherit; color: #fff; background-color: #1cc88a;  border-color: #1cc88a; font-weight:400; text-align:center; margin: auto; display:flex; border-radius: 8px; padding:8px";
   deleteButton.setAttribute('style', styleButton);
 
   parent.appendChild(deleteButton)

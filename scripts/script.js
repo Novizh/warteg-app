@@ -6,7 +6,9 @@ const items = [
   { name: 'ayam-goreng' },
   { name: 'ayam-bakar' },
   { name: 'ayam-krispi' },
+  { name: 'nasi' },
   { name: 'ayam-geprek' },
+  { name: 'nasi-kuning' },
 ]
 
 let cartTable = document.querySelector('#cart')
@@ -47,8 +49,8 @@ function createFoodCard(name) {
   let itemPicInner = document.createElement('div')
   itemPicInner.setAttribute('class', 'col mr-2')
 
-  let imgData = document.createElement('img') 
-  imgData.setAttribute('class', 'img-thumbnail rounded mx-auto') 
+  let imgData = document.createElement('img')
+  imgData.setAttribute('class', 'img-thumbnail rounded mx-auto')
   imgData.setAttribute('src', `./assets/${name}.jpg`) // buat dinamis/
   imgData.setAttribute('alt', `${name}`) // buat dinamis/
 
@@ -63,11 +65,11 @@ function createFoodCard(name) {
   let itemButton = document.createElement('div')
   itemButton.setAttribute('id', `${name}-button`) // buat dinamis/
   itemButton.setAttribute('class', 'btn btn-success btn-icon-split float-right')
-  
+
   let itemButtonText = document.createElement('span')
   itemButtonText.setAttribute('class', 'text')
   itemButtonText.innerHTML = 'Pesan'
-  
+
   itemButton.appendChild(itemButtonText)
 
   cardBody.appendChild(itemName)
@@ -84,12 +86,32 @@ function addItems(itemName, itemButton) {
     let cartRow = document.createElement('tr')
     let cartItem = document.createElement('td')
     cartItem.innerHTML = item.innerHTML.toUpperCase()
-
+    
     cartTable.appendChild(cartRow)
     cartRow.appendChild(cartItem)
+    
+    let cartAction = document.createElement('td')
+    createDeleteButton(cartAction)
+
+    cartRow.appendChild(cartAction)
   })
 }
 
+function createDeleteButton(parent) {
+  let deleteButton = document.createElement('button')
+  deleteButton.innerHTML = 'remove'
+  parent.appendChild(deleteButton)
+
+  deleteButton.addEventListener('click', function (event) {
+    let rowDelete = deleteButton.closest('tr')
+    let mainTable = rowDelete.closest('table')
+
+    mainTable.removeChild(rowDelete)
+  })
+
+}
+
+// function callings
 let colorCounter = 0
 for (let i = 0; i < items.length; i++) {
   createFoodCard(items[i].name)

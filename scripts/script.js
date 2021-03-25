@@ -1,14 +1,14 @@
 const items = [
-  { name: 'telor-dadar' },
-  { name: 'kikil' },
-  { name: 'capcay' },
-  { name: 'mie-goreng' },
-  { name: 'ayam-goreng' },
-  { name: 'ayam-bakar' },
-  { name: 'ayam-krispi' },
-  { name: 'nasi' },
-  { name: 'ayam-geprek' },
-  { name: 'nasi-kuning' },
+  { name: 'telor-dadar', price: 12000 },
+  { name: 'kikil', price: 13000 },
+  { name: 'capcay', price: 11000 },
+  { name: 'mie-goreng', price: 5000 },
+  { name: 'ayam-goreng', price: 6000 },
+  { name: 'ayam-bakar', price: 7000 },
+  { name: 'ayam-krispi', price: 8000 },
+  { name: 'nasi', price: 9000 },
+  { name: 'ayam-geprek', price: 11000 },
+  { name: 'nasi-kuning', price: 10100 },
 ]
 
 let cartTable = document.querySelector('#cart')
@@ -17,7 +17,7 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function createFoodCard(name) {
+function createFoodCard(name, price) {
   let row = document.querySelector('.row')
 
   let cardContainer = document.createElement('div')
@@ -59,8 +59,9 @@ function createFoodCard(name) {
 
   //
   let itemPrice = document.createElement('div')
+  itemPrice.setAttribute('id', `${name}-price`)
   itemPrice.setAttribute('class', 'p p-3 font-weight-bold text-gray-800')
-  itemPrice.innerHTML = 'Rp 5.000' // buat dinamis
+  itemPrice.innerHTML = `Rp ${Intl.NumberFormat('id').format(price)}` // buat dinamis, format angka rupiah
 
   let itemButton = document.createElement('div')
   itemButton.setAttribute('id', `${name}-button`) // buat dinamis/
@@ -78,18 +79,22 @@ function createFoodCard(name) {
   cardBody.appendChild(itemButton)
 }
 
-function addItems(itemName, itemButton) {
+function addItems(itemName, itemButton, itemPrice) {
   let item = document.querySelector(itemName)
   let button = document.querySelector(itemButton)
+  let price = document.querySelector(itemPrice)
 
   button.addEventListener('click', function (event) {
     let cartRow = document.createElement('tr')
     let cartItem = document.createElement('td')
+    let cartPrice = document.createElement('td')
     cartItem.innerHTML = item.innerHTML.toUpperCase()
-    
+    cartPrice.innerHTML = price.innerHTML
+
     cartTable.appendChild(cartRow)
     cartRow.appendChild(cartItem)
-    
+    cartRow.appendChild(cartPrice)
+
     let cartAction = document.createElement('td')
     createDeleteButton(cartAction)
 
@@ -114,7 +119,7 @@ function createDeleteButton(parent) {
 // function callings
 let colorCounter = 0
 for (let i = 0; i < items.length; i++) {
-  createFoodCard(items[i].name)
-  addItems(`#${items[i].name}-item`, `#${items[i].name}-button`)
+  createFoodCard(items[i].name, items[i].price)
+  addItems(`#${items[i].name}-item`, `#${items[i].name}-button`, `#${items[i].name}-price`)
   colorCounter++
 }

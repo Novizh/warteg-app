@@ -11,6 +11,17 @@ const items = [
   { name: 'nasi-kuning', price: 10100 },
 ]
 
+const drinks = [
+  {name:'air-putih', price: 1000},
+  {name:'es-teh', price: 3000},
+  {name:'es-jeruk', price: 3500},
+  {name:'soda', price: 5000},
+  {name:'es-coklat', price: 5000},
+  {name:'enerjen', price: 5000},
+  {name:'kofimix', price: 3000},
+  {name:'es-susu', price: 2000}  
+]
+
 let cartTable = document.querySelector('#cart')
 
 function capitalizeFirstLetter(string) {
@@ -61,7 +72,7 @@ function createFoodCard(name, price) {
   let itemPrice = document.createElement('div')
   itemPrice.setAttribute('id', `${name}-price`)
   itemPrice.setAttribute('class', 'p p-3 font-weight-bold text-gray-800')
-  itemPrice.innerHTML = `Rp ${Intl.NumberFormat('id').format(price)}` // buat dinamis, format angka rupiah // buat fungsi
+  itemPrice.innerHTML = `Rp ${Intl.NumberFormat('id').format(price)}` // buat dinamis, format angka rupiah
 
   let itemButton = document.createElement('div')
   itemButton.setAttribute('id', `${name}-button`) // buat dinamis/
@@ -79,7 +90,7 @@ function createFoodCard(name, price) {
   cardBody.appendChild(itemButton)
 }
 
-function addItems(obj, itemName, itemButton, itemPrice) {
+function addItems(itemName, itemButton, itemPrice) {
   let item = document.querySelector(itemName)
   let button = document.querySelector(itemButton)
   let price = document.querySelector(itemPrice)
@@ -96,20 +107,17 @@ function addItems(obj, itemName, itemButton, itemPrice) {
     cartRow.appendChild(cartPrice)
 
     let cartAction = document.createElement('td')
-    createDeleteButton(cartAction, obj)
+    createDeleteButton(cartAction)
 
     cartRow.appendChild(cartAction)
-    
-    console.log(itemPrice)
-    totalPrice += obj.price
-    calculateTotal()
   })
 }
 
-function createDeleteButton(parent, obj) {
+function createDeleteButton(parent) {
   let deleteButton = document.createElement('button')
   deleteButton.innerHTML = 'Remove'
-  deleteButton.setAttribute('class', 'btn btn-danger');
+  var styleButton = "font-family:inherit; color: #fff; background-color: #1cc88a;  border-color: #1cc88a; font-weight:400; text-align:center; margin: auto; display:flex; border-radius: 8px; padding:8px";
+  deleteButton.setAttribute('style', styleButton);
 
   parent.appendChild(deleteButton)
 
@@ -118,41 +126,14 @@ function createDeleteButton(parent, obj) {
     let mainTable = rowDelete.closest('table')
 
     mainTable.removeChild(rowDelete)
-
-    totalPrice -= obj.price
-    calculateTotal()
   })
 
 }
 
-function calculateTotal() {
-  let totalPriceColumn = document.querySelector('#total-harga')
-  totalPriceColumn.innerHTML = totalPrice
-}
-
-
-// experimental
-
-// function createNewCategoryMenu() {
-//   let menuDiv = document.querySelector('#menu')
-//   let newCategoryMenu = document.createElement('button')
-//   newCategoryMenu.innerHTML = 'makanan'
-
-//   menuDiv.appendChild(newCategoryMenu)
-// }
-
-// createNewCategoryMenu()
-// createNewCategoryMenu()
-
-// function swapCategoryList(menuList) {
-//   let row = document.querySelector('.row')
-// }
-
 // function callings
-let totalPrice = 0
 let colorCounter = 0
 for (let i = 0; i < items.length; i++) {
   createFoodCard(items[i].name, items[i].price)
-  addItems(items[i], `#${items[i].name}-item`, `#${items[i].name}-button`, `#${items[i].name}-price`)
+  addItems(`#${items[i].name}-item`, `#${items[i].name}-button`, `#${items[i].name}-price`)
   colorCounter++
 }

@@ -38,11 +38,10 @@ function createFoodCard(name, price) {
   cardContainer.setAttribute('class', 'col-xl-3 col-md-6 mb-4')
 
   let cardBorder = document.createElement('div')
-  if (colorCounter % 4 === 0) cardBorder.setAttribute('class', 'card border-left-primary shadow h-100 py-2') // buat dinamis
-  if (colorCounter % 4 === 3) cardBorder.setAttribute('class', 'card border-left-success shadow h-100 py-2') // buat dinamis
-  if (colorCounter % 4 === 2) cardBorder.setAttribute('class', 'card border-left-info shadow h-100 py-2') // buat dinamis
-  if (colorCounter % 4 === 1) cardBorder.setAttribute('class', 'card border-left-warning shadow h-100 py-2') // buat dinamis
-
+  if (colorCounter % 4 === 0) cardBorder.setAttribute('class', 'card border-left-primary shadow h-100 py-2')
+  if (colorCounter % 4 === 3) cardBorder.setAttribute('class', 'card border-left-success shadow h-100 py-2')
+  if (colorCounter % 4 === 2) cardBorder.setAttribute('class', 'card border-left-info shadow h-100 py-2')
+  if (colorCounter % 4 === 1) cardBorder.setAttribute('class', 'card border-left-warning shadow h-100 py-2')
   let cardBody = document.createElement('div')
   cardBody.setAttribute('class', 'card-body')
 
@@ -52,12 +51,12 @@ function createFoodCard(name, price) {
 
   // isi cardBody
   let itemName = document.createElement('div')
-  itemName.setAttribute('id', `${name}-item`) // buat dinamis/
+  itemName.setAttribute('id', `${name}-item`)
   if (colorCounter % 4 === 0) itemName.setAttribute('class', 'text-l font-weight-bold text-primary text-uppercase mb-1')
   if (colorCounter % 4 === 3) itemName.setAttribute('class', 'text-l font-weight-bold text-success text-uppercase mb-1')
   if (colorCounter % 4 === 2) itemName.setAttribute('class', 'text-l font-weight-bold text-info text-uppercase mb-1')
   if (colorCounter % 4 === 1) itemName.setAttribute('class', 'text-l font-weight-bold text-warning text-uppercase mb-1')
-  itemName.innerHTML = name.split('-').join(' ') //buat dinamis/
+  itemName.innerHTML = name.split('-').join(' ')
 
   // pic
   let itemPic = document.createElement('div')
@@ -68,8 +67,8 @@ function createFoodCard(name, price) {
 
   let imgData = document.createElement('img')
   imgData.setAttribute('class', 'img-thumbnail rounded mx-auto')
-  imgData.setAttribute('src', `./assets/${name}.jpg`) // buat dinamis/
-  imgData.setAttribute('alt', `${name}`) // buat dinamis/
+  imgData.setAttribute('src', `./assets/${name}.jpg`)
+  imgData.setAttribute('alt', `${name}`)
 
   itemPicInner.appendChild(imgData)
   itemPic.appendChild(itemPicInner)
@@ -78,10 +77,10 @@ function createFoodCard(name, price) {
   let itemPrice = document.createElement('div')
   itemPrice.setAttribute('id', `${name}-price`)
   itemPrice.setAttribute('class', 'p p-3 font-weight-bold text-gray-800')
-  itemPrice.innerHTML = `Rp ${formatNumberToCurrency(price)}` // buat dinamis, format angka rupiah // buat fungsi
+  itemPrice.innerHTML = `Rp ${formatNumberToCurrency(price)}`
 
   let itemButton = document.createElement('div')
-  itemButton.setAttribute('id', `${name}-button`) // buat dinamis/
+  itemButton.setAttribute('id', `${name}-button`)
   itemButton.setAttribute('class', 'btn btn-success btn-icon-split float-right')
 
   let itemButtonText = document.createElement('span')
@@ -125,16 +124,22 @@ function addItems(obj, itemName, itemButton, itemPrice) {
 }
 
 function createExtraPortionButton(parent, inner) {
-    let extraPortionButton = document.createElement('button');
-    extraPortionButton.innerHTML = "Extra Portion"
-    extraPortionButton.setAttribute('class', 'btn btn-info');
-    extraPortionButton.setAttribute('id', 'extra-portion')
-    parent.appendChild(extraPortionButton);
+  let extraPortionButton = document.createElement('button');
+  extraPortionButton.innerHTML = "Extra Portion"
+  extraPortionButton.setAttribute('class', 'btn btn-info');
+  extraPortionButton.setAttribute('id', 'extra-portion')
+  parent.appendChild(extraPortionButton);
 
-    extraPortionButton.addEventListener('click', function callback(event) {
+  let temp = inner.innerHTML
+  extraPortionButton.addEventListener('click', function callback(event) {
+    if (inner.innerHTML === temp) {
       inner.innerHTML += ' - Porsi Besar'
-      // extraPortionButton.removeEventListener('click', callback())
-    })
+    } else {
+      inner.innerHTML = temp
+    }
+
+    // extraPortionButton.removeEventListener('click', callback())
+  })
 
 }
 
@@ -162,68 +167,25 @@ function calculateTotal() {
   totalPriceColumn.innerHTML = 'Rp ' + formatNumberToCurrency(totalPrice)
 }
 
+function createMenus() {
+  let buttonMakanan = document.querySelector('#button-makanan')
+  let buttonMinuman = document.querySelector('#button-minuman')
 
-// experimental
+  buttonMakanan.addEventListener('click', function (event) {
+    let row = document.querySelector('.row')
+    row.innerHTML = ''
+    generateCardList(listMakanan)
+  })
 
-// function updateOrder(something) {
-//   let updateButton = document.querySelector('.update-button')
-//   // let medium = document.querySelector('.medium')
-//   // let big = document.querySelector('.big')
-//   // let tabelRow = extra.closest('tr')
-//   updateButton.addEventListener('click', function (event) {
-
-//   })
-// }
-
-
-// function createMenus() {
-//   // let menuMinuman = document.querySelector('#menu-minuman')
-
-//   // let buttonMakanan = document.createElement('#button-makanan')
-//   // let buttonMinuman = document.createElement('#button-minuman')
-
-//   let buttonMakanan = document.querySelector('#button-makanan')
-//   let buttonMinuman = document.querySelector('#button-minuman')
-
-//   buttonMakanan.addEventListener('click', function (event) {
-//     // console.log('masuk')
-//     let menuList = document.querySelector('.col-xl-3')
-//     let row = menuList.closest('.row')
-//     row.removeChild(menuList)
-
-//     generateCardList(listMakanan)
-//   })
-
-//   buttonMinuman.addEventListener('click', function (event) {
-//     let menuList = document.querySelector('.col-xl-3')
-//     let row = menuList.closest('.row')
-//     row.removeChild(menuList)
-
-//     generateCardList(listMinuman)
-//   })
-// }
+  buttonMinuman.addEventListener('click', function (event) {
+    let row = document.querySelector('.row')
+    row.innerHTML = ''
+    generateCardList(listMinuman)
+  })
+}
 
 
-
-
-// experimental
-
-// function createNewCategoryMenu() {
-//   let menuDiv = document.querySelector('#menu')
-//   let newCategoryMenu = document.createElement('button')
-//   newCategoryMenu.innerHTML = 'makanan'
-
-//   menuDiv.appendChild(newCategoryMenu)
-// }
-
-// createNewCategoryMenu()
-// createNewCategoryMenu()
-
-// function swapCategoryList(menuList) {
-//   let row = document.querySelector('.row')
-// }
-
-// function callings
+// #function callings
 let totalPrice = 0
 let colorCounter = 0
 function generateCardList(items) {
@@ -234,5 +196,5 @@ function generateCardList(items) {
   }
 }
 
-generateCardList(listMinuman)
-// createMenus()
+generateCardList(listMakanan)
+createMenus()

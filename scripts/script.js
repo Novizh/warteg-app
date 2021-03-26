@@ -113,7 +113,7 @@ function addItems(obj, itemName, itemButton, itemPrice) {
     cartRow.appendChild(cartPrice)
 
     let cartAction = document.createElement('td')
-    createExtraPortionButton(cartAction, obj)
+    createExtraPortionButton(cartAction, cartItem)
     createDeleteButton(cartAction, obj)
 
     cartRow.appendChild(cartAction)
@@ -124,15 +124,16 @@ function addItems(obj, itemName, itemButton, itemPrice) {
   })
 }
 
-function createExtraPortionButton(parent, obj) {
+function createExtraPortionButton(parent, inner) {
     let extraPortionButton = document.createElement('button');
     extraPortionButton.innerHTML = "Extra Portion"
     extraPortionButton.setAttribute('class', 'btn btn-info');
     extraPortionButton.setAttribute('id', 'extra-portion')
     parent.appendChild(extraPortionButton);
 
-    extraPortionButton.addEventListener('click', function (event) {
-
+    extraPortionButton.addEventListener('click', function callback(event) {
+      inner.innerHTML += ' - Porsi Besar'
+      // extraPortionButton.removeEventListener('click', callback())
     })
 
 }
@@ -164,15 +165,15 @@ function calculateTotal() {
 
 // experimental
 
-function updateOrder(something) {
-  let updateButton = document.querySelector('.update-button')
-  // let medium = document.querySelector('.medium')
-  // let big = document.querySelector('.big')
-  // let tabelRow = extra.closest('tr')
-  updateButton.addEventListener('click', function (event) {
+// function updateOrder(something) {
+//   let updateButton = document.querySelector('.update-button')
+//   // let medium = document.querySelector('.medium')
+//   // let big = document.querySelector('.big')
+//   // let tabelRow = extra.closest('tr')
+//   updateButton.addEventListener('click', function (event) {
 
-  })
-}
+//   })
+// }
 
 
 // function createMenus() {

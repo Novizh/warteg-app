@@ -61,7 +61,7 @@ function createFoodCard(name, price) {
   let itemPrice = document.createElement('div')
   itemPrice.setAttribute('id', `${name}-price`)
   itemPrice.setAttribute('class', 'p p-3 font-weight-bold text-gray-800')
-  itemPrice.innerHTML = `Rp ${Intl.NumberFormat('id').format(price)}` // buat dinamis, format angka rupiah
+  itemPrice.innerHTML = `Rp ${Intl.NumberFormat('id').format(price)}` // buat dinamis, format angka rupiah // buat fungsi
 
   let itemButton = document.createElement('div')
   itemButton.setAttribute('id', `${name}-button`) // buat dinamis/
@@ -125,11 +125,28 @@ function createDeleteButton(parent, minusPrice) {
 
 }
 
-function calculateTotal () {
+function calculateTotal() {
   let totalPriceColumn = document.querySelector('#total-harga')
   totalPriceColumn.innerHTML = totalPrice
 }
 
+
+// experimental
+
+// function createNewCategoryMenu() {
+//   let menuDiv = document.querySelector('#menu')
+//   let newCategoryMenu = document.createElement('button')
+//   newCategoryMenu.innerHTML = 'makanan'
+
+//   menuDiv.appendChild(newCategoryMenu)
+// }
+
+// createNewCategoryMenu()
+// createNewCategoryMenu()
+
+// function swapCategoryList(menuList) {
+//   let row = document.querySelector('.row')
+// }
 
 // function callings
 let totalPrice = 0

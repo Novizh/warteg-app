@@ -1,4 +1,4 @@
-const items = [
+const listMakanan = [
   { name: 'telor-dadar', price: 12000 },
   { name: 'kikil', price: 13000 },
   { name: 'capcay', price: 11000 },
@@ -7,14 +7,28 @@ const items = [
   { name: 'ayam-bakar', price: 7000 },
   { name: 'ayam-krispi', price: 8000 },
   { name: 'ayam-geprek', price: 11000 },
-  { name: 'nasi', price: 9000 },
-  { name: 'nasi-kuning', price: 10100 },
+  // { name: 'nasi', price: 9000 },
+  // { name: 'nasi-kuning', price: 10100 },
+]
+const listMinuman = [
+  { name: 'air-putih', price: 1000 },
+  { name: 'es-teh', price: 3000 },
+  { name: 'es-jeruk', price: 3500 },
+  { name: 'soda', price: 5000 },
+  { name: 'es-coklat', price: 5000 },
+  { name: 'enerjen', price: 5000 },
+  { name: 'kofimix', price: 3000 },
+  { name: 'es-susu', price: 2000 }
 ]
 
 let cartTable = document.querySelector('#cart')
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function formatNumberToCurrency(num) {
+  return Intl.NumberFormat('id').format(num)
 }
 
 function createFoodCard(name, price) {
@@ -64,7 +78,7 @@ function createFoodCard(name, price) {
   let itemPrice = document.createElement('div')
   itemPrice.setAttribute('id', `${name}-price`)
   itemPrice.setAttribute('class', 'p p-3 font-weight-bold text-gray-800')
-  itemPrice.innerHTML = `Rp ${Intl.NumberFormat('id').format(price)}` // buat dinamis, format angka rupiah // buat fungsi
+  itemPrice.innerHTML = `Rp ${formatNumberToCurrency(price)}` // buat dinamis, format angka rupiah // buat fungsi
 
   let itemButton = document.createElement('div')
   itemButton.setAttribute('id', `${name}-button`) // buat dinamis/
@@ -103,7 +117,7 @@ function addItems(obj, itemName, itemButton, itemPrice) {
     createDeleteButton(cartAction, obj)
 
     cartRow.appendChild(cartAction)
-    
+
     console.log(itemPrice)
     totalPrice += obj.price
     calculateTotal()
@@ -144,8 +158,51 @@ function createDeleteButton(parent, obj) {
 
 function calculateTotal() {
   let totalPriceColumn = document.querySelector('#total-harga')
-  totalPriceColumn.innerHTML = totalPrice
+  totalPriceColumn.innerHTML = 'Rp ' + formatNumberToCurrency(totalPrice)
 }
+
+
+// experimental
+
+function updateOrder(something) {
+  let updateButton = document.querySelector('.update-button')
+  // let medium = document.querySelector('.medium')
+  // let big = document.querySelector('.big')
+  // let tabelRow = extra.closest('tr')
+  updateButton.addEventListener('click', function (event) {
+
+  })
+}
+
+
+// function createMenus() {
+//   // let menuMinuman = document.querySelector('#menu-minuman')
+
+//   // let buttonMakanan = document.createElement('#button-makanan')
+//   // let buttonMinuman = document.createElement('#button-minuman')
+
+//   let buttonMakanan = document.querySelector('#button-makanan')
+//   let buttonMinuman = document.querySelector('#button-minuman')
+
+//   buttonMakanan.addEventListener('click', function (event) {
+//     // console.log('masuk')
+//     let menuList = document.querySelector('.col-xl-3')
+//     let row = menuList.closest('.row')
+//     row.removeChild(menuList)
+
+//     generateCardList(listMakanan)
+//   })
+
+//   buttonMinuman.addEventListener('click', function (event) {
+//     let menuList = document.querySelector('.col-xl-3')
+//     let row = menuList.closest('.row')
+//     row.removeChild(menuList)
+
+//     generateCardList(listMinuman)
+//   })
+// }
+
+
 
 
 // experimental
@@ -168,8 +225,13 @@ function calculateTotal() {
 // function callings
 let totalPrice = 0
 let colorCounter = 0
-for (let i = 0; i < items.length; i++) {
-  createFoodCard(items[i].name, items[i].price)
-  addItems(items[i], `#${items[i].name}-item`, `#${items[i].name}-button`, `#${items[i].name}-price`)
-  colorCounter++
+function generateCardList(items) {
+  for (let i = 0; i < items.length; i++) {
+    createFoodCard(items[i].name, items[i].price)
+    addItems(items[i], `#${items[i].name}-item`, `#${items[i].name}-button`, `#${items[i].name}-price`)
+    colorCounter++
+  }
 }
+
+generateCardList(listMinuman)
+// createMenus()

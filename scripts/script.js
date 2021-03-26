@@ -79,7 +79,7 @@ function createFoodCard(name, price) {
   cardBody.appendChild(itemButton)
 }
 
-function addItems(itemName, itemButton, itemPrice) {
+function addItems(obj, itemName, itemButton, itemPrice) {
   let item = document.querySelector(itemName)
   let button = document.querySelector(itemButton)
   let price = document.querySelector(itemPrice)
@@ -96,20 +96,20 @@ function addItems(itemName, itemButton, itemPrice) {
     cartRow.appendChild(cartPrice)
 
     let cartAction = document.createElement('td')
-    createDeleteButton(cartAction, itemPrice)
+    createDeleteButton(cartAction, obj)
 
     cartRow.appendChild(cartAction)
-
-    totalPrice += itemPrice
+    
+    console.log(itemPrice)
+    totalPrice += obj.price
     calculateTotal()
   })
 }
 
-function createDeleteButton(parent, minusPrice) {
+function createDeleteButton(parent, obj) {
   let deleteButton = document.createElement('button')
   deleteButton.innerHTML = 'Remove'
-  var styleButton = "font-family:inherit; color: #fff; background-color: #1cc88a;  border-color: #1cc88a; font-weight:400; text-align:center; margin: auto; display:flex; border-radius: 8px; padding:8px";
-  deleteButton.setAttribute('style', styleButton);
+  deleteButton.setAttribute('class', 'btn btn-danger');
 
   parent.appendChild(deleteButton)
 
@@ -119,7 +119,7 @@ function createDeleteButton(parent, minusPrice) {
 
     mainTable.removeChild(rowDelete)
 
-    totalPrice -= minusPrice
+    totalPrice -= obj.price
     calculateTotal()
   })
 
@@ -153,6 +153,6 @@ let totalPrice = 0
 let colorCounter = 0
 for (let i = 0; i < items.length; i++) {
   createFoodCard(items[i].name, items[i].price)
-  addItems(`#${items[i].name}-item`, `#${items[i].name}-button`, `#${items[i].name}-price`)
+  addItems(items[i], `#${items[i].name}-item`, `#${items[i].name}-button`, `#${items[i].name}-price`)
   colorCounter++
 }

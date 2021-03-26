@@ -39,7 +39,10 @@ function createFoodCard(name, price) {
   // isi cardBody
   let itemName = document.createElement('div')
   itemName.setAttribute('id', `${name}-item`) // buat dinamis/
-  itemName.setAttribute('class', 'text-l font-weight-bold text-primary text-uppercase mb-1')
+  if (colorCounter % 4 === 0) itemName.setAttribute('class', 'text-l font-weight-bold text-primary text-uppercase mb-1')
+  if (colorCounter % 4 === 3) itemName.setAttribute('class', 'text-l font-weight-bold text-success text-uppercase mb-1')
+  if (colorCounter % 4 === 2) itemName.setAttribute('class', 'text-l font-weight-bold text-info text-uppercase mb-1')
+  if (colorCounter % 4 === 1) itemName.setAttribute('class', 'text-l font-weight-bold text-warning text-uppercase mb-1')
   itemName.innerHTML = name.split('-').join(' ') //buat dinamis/
 
   // pic

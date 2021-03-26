@@ -10,17 +10,28 @@ const listMakanan = [
   // { name: 'nasi', price: 9000 },
   // { name: 'nasi-kuning', price: 10100 },
 ]
+// const listMinuman = [
+//   { name: 'telor-dadar', price: 12000 },
+//   { name: 'kikil', price: 13000 },
+//   { name: 'capcay', price: 11000 },
+//   { name: 'mie-goreng', price: 5000 },
+//   // { name: 'ayam-goreng', price: 6000 },
+//   // { name: 'ayam-bakar', price: 7000 },
+//   // { name: 'ayam-krispi', price: 8000 },
+//   // { name: 'ayam-geprek', price: 11000 },
+//   // { name: 'nasi', price: 9000 },
+//   // { name: 'nasi-kuning', price: 10100 },
+// ]
+
 const listMinuman = [
-  { name: 'telor-dadar', price: 12000 },
-  { name: 'kikil', price: 13000 },
-  { name: 'capcay', price: 11000 },
-  { name: 'mie-goreng', price: 5000 },
-  // { name: 'ayam-goreng', price: 6000 },
-  // { name: 'ayam-bakar', price: 7000 },
-  // { name: 'ayam-krispi', price: 8000 },
-  // { name: 'ayam-geprek', price: 11000 },
-  // { name: 'nasi', price: 9000 },
-  // { name: 'nasi-kuning', price: 10100 },
+  { name: 'air-putih', price: 1000 },
+  { name: 'es-teh', price: 3000 },
+  { name: 'es-jeruk', price: 3500 },
+  { name: 'soda', price: 5000 },
+  { name: 'es-coklat', price: 5000 },
+  { name: 'enerjen', price: 5000 },
+  { name: 'kofimix', price: 3000 },
+  { name: 'es-susu', price: 2000 }
 ]
 
 let cartTable = document.querySelector('#cart')
@@ -101,7 +112,7 @@ function createFoodCard(name, price) {
   cardBody.appendChild(itemButton)
 }
 
-function addItems(obj, itemName, itemButton, itemPrice) {
+function addItems(itemName, itemButton, itemPrice) {
   let item = document.querySelector(itemName)
   let button = document.querySelector(itemButton)
   let price = document.querySelector(itemPrice)
@@ -118,7 +129,7 @@ function addItems(obj, itemName, itemButton, itemPrice) {
     cartRow.appendChild(cartPrice)
 
     let cartAction = document.createElement('td')
-    createDeleteButton(cartAction, obj)
+    createDeleteButton(cartAction)
 
     cartRow.appendChild(cartAction)
 
@@ -128,10 +139,11 @@ function addItems(obj, itemName, itemButton, itemPrice) {
   })
 }
 
-function createDeleteButton(parent, obj) {
+function createDeleteButton(parent) {
   let deleteButton = document.createElement('button')
   deleteButton.innerHTML = 'Remove'
-  deleteButton.setAttribute('class', 'btn btn-danger');
+  var styleButton = "font-family:inherit; color: #fff; background-color: #1cc88a;  border-color: #1cc88a; font-weight:400; text-align:center; margin: auto; display:flex; border-radius: 8px; padding:8px";
+  deleteButton.setAttribute('style', styleButton);
 
   parent.appendChild(deleteButton)
 
@@ -140,9 +152,6 @@ function createDeleteButton(parent, obj) {
     let mainTable = rowDelete.closest('table')
 
     mainTable.removeChild(rowDelete)
-
-    totalPrice -= obj.price
-    calculateTotal()
   })
 
 }
@@ -157,13 +166,13 @@ function calculateTotal() {
 
 function createMenus() {
   // let menuMinuman = document.querySelector('#menu-minuman')
-  
+
   // let buttonMakanan = document.createElement('#button-makanan')
   // let buttonMinuman = document.createElement('#button-minuman')
-  
+
   let buttonMakanan = document.querySelector('#button-makanan')
   let buttonMinuman = document.querySelector('#button-minuman')
-  
+
   buttonMakanan.addEventListener('click', function (event) {
     // console.log('masuk')
     let rowContainer = document.querySelector('.row-container')
@@ -199,7 +208,6 @@ function createMenus() {
 // }
 
 // function callings
-let totalPrice = 0
 let colorCounter = 0
 function generateCardList(items) {
   for (let i = 0; i < items.length; i++) {

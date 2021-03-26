@@ -146,7 +146,7 @@ function createExtraPortionButton(parent, inner) {
 function createDeleteButton(parent, obj) {
   let deleteButton = document.createElement('button')
   deleteButton.innerHTML = 'Remove'
-  deleteButton.setAttribute('class', 'btn btn-danger');
+  deleteButton.setAttribute('class', 'btn btn-danger ml-2');
 
   parent.appendChild(deleteButton)
 

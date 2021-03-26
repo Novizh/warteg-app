@@ -61,7 +61,7 @@ function createFoodCard(name, price) {
   let itemPrice = document.createElement('div')
   itemPrice.setAttribute('id', `${name}-price`)
   itemPrice.setAttribute('class', 'p p-3 font-weight-bold text-gray-800')
-  itemPrice.innerHTML = `Rp ${Intl.NumberFormat('id').format(price)}` // buat dinamis, format angka rupiah
+  itemPrice.innerHTML = `Rp ${Intl.NumberFormat('id').format(price)}` // buat dinamis, format angka rupiah // buat fungsi
 
   let itemButton = document.createElement('div')
   itemButton.setAttribute('id', `${name}-button`) // buat dinamis/
@@ -79,7 +79,7 @@ function createFoodCard(name, price) {
   cardBody.appendChild(itemButton)
 }
 
-function addItems(itemName, itemButton, itemPrice) {
+function addItems(obj, itemName, itemButton, itemPrice) {
   let item = document.querySelector(itemName)
   let button = document.querySelector(itemButton)
   let price = document.querySelector(itemPrice)
@@ -96,14 +96,18 @@ function addItems(itemName, itemButton, itemPrice) {
     cartRow.appendChild(cartPrice)
 
     let cartAction = document.createElement('td')
-    createDeleteButton(cartAction)
+    createDeleteButton(cartAction, obj)
 
     cartRow.appendChild(cartAction)
+    
+    console.log(itemPrice)
+    totalPrice += obj.price
+    calculateTotal()
   })
 }
 
-function createDeleteButton(parent) {
-  let deleteButton = document.createElement('a')
+function createDeleteButton(parent, obj) {
+  let deleteButton = document.createElement('button')
   deleteButton.innerHTML = 'Remove'
   deleteButton.setAttribute('class', 'btn btn-danger');
 
@@ -114,14 +118,41 @@ function createDeleteButton(parent) {
     let mainTable = rowDelete.closest('table')
 
     mainTable.removeChild(rowDelete)
+
+    totalPrice -= obj.price
+    calculateTotal()
   })
 
 }
 
+function calculateTotal() {
+  let totalPriceColumn = document.querySelector('#total-harga')
+  totalPriceColumn.innerHTML = totalPrice
+}
+
+
+// experimental
+
+// function createNewCategoryMenu() {
+//   let menuDiv = document.querySelector('#menu')
+//   let newCategoryMenu = document.createElement('button')
+//   newCategoryMenu.innerHTML = 'makanan'
+
+//   menuDiv.appendChild(newCategoryMenu)
+// }
+
+// createNewCategoryMenu()
+// createNewCategoryMenu()
+
+// function swapCategoryList(menuList) {
+//   let row = document.querySelector('.row')
+// }
+
 // function callings
+let totalPrice = 0
 let colorCounter = 0
 for (let i = 0; i < items.length; i++) {
   createFoodCard(items[i].name, items[i].price)
-  addItems(`#${items[i].name}-item`, `#${items[i].name}-button`, `#${items[i].name}-price`)
+  addItems(items[i], `#${items[i].name}-item`, `#${items[i].name}-button`, `#${items[i].name}-price`)
   colorCounter++
 }

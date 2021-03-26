@@ -1,77 +1,3 @@
-<<<<<<< HEAD
-let menu = [
-    {name: 'Telor Dadar', price: 5000},
-    {name: 'Kikil', price: 6000},
-    {name: 'Capcay', price: 4500},
-    {name: 'Mie Goreng', price: 5500},
-]
-
-let shoppingCart = document.getElementById('shopping-cart');
-
-let buttonTelorDadar = document.getElementById("pesan-telor-dadar");
-buttonTelorDadar.addEventListener("click", () => {
-    let tableRow = document.createElement('tr');
-    let tableDataItem = document.createElement('td');
-    let tableDataPrice = document.createElement('td');
-    for (let i = 0; i <= menu.length-1; i++) {
-        if (menu[i].name == 'Telor Dadar') {
-            tableDataItem.innerHTML = menu[i].name;
-            tableDataPrice.innerHTML = menu[i].price;
-        }
-    }
-    tableRow.appendChild(tableDataItem);
-    tableRow.appendChild(tableDataPrice);
-    shoppingCart.appendChild(tableRow);
-})
-
-let buttonKikil = document.getElementById("pesan-kikil");
-buttonKikil.addEventListener("click", () => {
-    let tableRow = document.createElement('tr');
-    let tableDataItem = document.createElement('td');
-    let tableDataPrice = document.createElement('td');
-    for (let i = 0; i <= menu.length-1; i++) {
-        if (menu[i].name == 'Kikil') {
-            tableDataItem.innerHTML = menu[i].name;
-            tableDataPrice.innerHTML = menu[i].price;
-        }
-    }
-    tableRow.appendChild(tableDataItem);
-    tableRow.appendChild(tableDataPrice);
-    shoppingCart.appendChild(tableRow);
-})
-
-let buttonCapcay = document.getElementById("pesan-capcay");
-buttonCapcay.addEventListener("click", () => {
-    let tableRow = document.createElement('tr');
-    let tableDataItem = document.createElement('td');
-    let tableDataPrice = document.createElement('td');
-    for (let i = 0; i <= menu.length-1; i++) {
-        if (menu[i].name == 'Capcay') {
-            tableDataItem.innerHTML = menu[i].name;
-            tableDataPrice.innerHTML = menu[i].price;
-        }
-    }
-    tableRow.appendChild(tableDataItem);
-    tableRow.appendChild(tableDataPrice);
-    shoppingCart.appendChild(tableRow);
-})
-
-let buttonMieGoreng = document.getElementById("pesan-mie-goreng");
-buttonMieGoreng.addEventListener("click", () => {
-    let tableRow = document.createElement('tr');
-    let tableDataItem = document.createElement('td');
-    let tableDataPrice = document.createElement('td');
-    for (let i = 0; i <= menu.length-1; i++) {
-        if (menu[i].name == 'Mie Goreng') {
-            tableDataItem.innerHTML = menu[i].name;
-            tableDataPrice.innerHTML = menu[i].price;
-        }
-    }
-    tableRow.appendChild(tableDataItem);
-    tableRow.appendChild(tableDataPrice);
-    shoppingCart.appendChild(tableRow);
-})
-=======
 const items = [
   { name: 'telor-dadar', price: 12000 },
   { name: 'kikil', price: 13000 },
@@ -170,13 +96,16 @@ function addItems(itemName, itemButton, itemPrice) {
     cartRow.appendChild(cartPrice)
 
     let cartAction = document.createElement('td')
-    createDeleteButton(cartAction)
+    createDeleteButton(cartAction, itemPrice)
 
     cartRow.appendChild(cartAction)
+
+    totalPrice += itemPrice
+    calculateTotal()
   })
 }
 
-function createDeleteButton(parent) {
+function createDeleteButton(parent, minusPrice) {
   let deleteButton = document.createElement('button')
   deleteButton.innerHTML = 'Remove'
   var styleButton = "font-family:inherit; color: #fff; background-color: #1cc88a;  border-color: #1cc88a; font-weight:400; text-align:center; margin: auto; display:flex; border-radius: 8px; padding:8px";
@@ -189,15 +118,24 @@ function createDeleteButton(parent) {
     let mainTable = rowDelete.closest('table')
 
     mainTable.removeChild(rowDelete)
+
+    totalPrice -= minusPrice
+    calculateTotal()
   })
 
 }
 
+function calculateTotal () {
+  let totalPriceColumn = document.querySelector('#total-harga')
+  totalPriceColumn.innerHTML = totalPrice
+}
+
+
 // function callings
+let totalPrice = 0
 let colorCounter = 0
 for (let i = 0; i < items.length; i++) {
   createFoodCard(items[i].name, items[i].price)
   addItems(`#${items[i].name}-item`, `#${items[i].name}-button`, `#${items[i].name}-price`)
   colorCounter++
 }
->>>>>>> 42caa1adb6dd2067241159b9feaeefed896d68cc

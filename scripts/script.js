@@ -99,6 +99,7 @@ function addItems(obj, itemName, itemButton, itemPrice) {
     cartRow.appendChild(cartPrice)
 
     let cartAction = document.createElement('td')
+    createExtraPortionButton(cartAction, obj)
     createDeleteButton(cartAction, obj)
 
     cartRow.appendChild(cartAction)
@@ -107,6 +108,19 @@ function addItems(obj, itemName, itemButton, itemPrice) {
     totalPrice += obj.price
     calculateTotal()
   })
+}
+
+function createExtraPortionButton(parent, obj) {
+    let extraPortionButton = document.createElement('button');
+    extraPortionButton.innerHTML = "Extra Portion"
+    extraPortionButton.setAttribute('class', 'btn btn-info');
+    extraPortionButton.setAttribute('id', 'extra-portion')
+    parent.appendChild(extraPortionButton);
+
+    extraPortionButton.addEventListener('click', function (event) {
+
+    })
+
 }
 
 function createDeleteButton(parent, obj) {

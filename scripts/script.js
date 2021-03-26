@@ -10,19 +10,6 @@ const listMakanan = [
   // { name: 'nasi', price: 9000 },
   // { name: 'nasi-kuning', price: 10100 },
 ]
-// const listMinuman = [
-//   { name: 'telor-dadar', price: 12000 },
-//   { name: 'kikil', price: 13000 },
-//   { name: 'capcay', price: 11000 },
-//   { name: 'mie-goreng', price: 5000 },
-//   // { name: 'ayam-goreng', price: 6000 },
-//   // { name: 'ayam-bakar', price: 7000 },
-//   // { name: 'ayam-krispi', price: 8000 },
-//   // { name: 'ayam-geprek', price: 11000 },
-//   // { name: 'nasi', price: 9000 },
-//   // { name: 'nasi-kuning', price: 10100 },
-// ]
-
 const listMinuman = [
   { name: 'air-putih', price: 1000 },
   { name: 'es-teh', price: 3000 },
@@ -41,16 +28,11 @@ function capitalizeFirstLetter(string) {
 }
 
 function formatNumberToCurrency(num) {
-  return new Intl.NumberFormat('id').format(num)
+  return Intl.NumberFormat('id').format(num)
 }
 
 function createFoodCard(name, price) {
-  // let rowContainer = document.querySelector('.row-container')
-  // rowContainer.setAttribute('class', 'container-fluid')
-
   let row = document.querySelector('.row')
-  // let row = document.createElement('div')
-  // row.setAttribute('class', 'row')
 
   let cardContainer = document.createElement('div')
   cardContainer.setAttribute('class', 'col-xl-3 col-md-6 mb-4')
@@ -64,10 +46,9 @@ function createFoodCard(name, price) {
   let cardBody = document.createElement('div')
   cardBody.setAttribute('class', 'card-body')
 
-  cardBorder.appendChild(cardBody)
-  cardContainer.appendChild(cardBorder)
   row.appendChild(cardContainer)
-  // rowContainer.appendChild(row)
+  cardContainer.appendChild(cardBorder)
+  cardBorder.appendChild(cardBody)
 
   // isi cardBody
   let itemName = document.createElement('div')
@@ -112,7 +93,7 @@ function createFoodCard(name, price) {
   cardBody.appendChild(itemButton)
 }
 
-function addItems(itemName, itemButton, itemPrice) {
+function addItems(obj, itemName, itemButton, itemPrice) {
   let item = document.querySelector(itemName)
   let button = document.querySelector(itemButton)
   let price = document.querySelector(itemPrice)
@@ -129,7 +110,7 @@ function addItems(itemName, itemButton, itemPrice) {
     cartRow.appendChild(cartPrice)
 
     let cartAction = document.createElement('td')
-    createDeleteButton(cartAction)
+    createDeleteButton(cartAction, obj)
 
     cartRow.appendChild(cartAction)
 
@@ -139,11 +120,10 @@ function addItems(itemName, itemButton, itemPrice) {
   })
 }
 
-function createDeleteButton(parent) {
+function createDeleteButton(parent, obj) {
   let deleteButton = document.createElement('button')
   deleteButton.innerHTML = 'Remove'
-  var styleButton = "font-family:inherit; color: #fff; background-color: #1cc88a;  border-color: #1cc88a; font-weight:400; text-align:center; margin: auto; display:flex; border-radius: 8px; padding:8px";
-  deleteButton.setAttribute('style', styleButton);
+  deleteButton.setAttribute('class', 'btn btn-danger');
 
   parent.appendChild(deleteButton)
 
@@ -152,45 +132,63 @@ function createDeleteButton(parent) {
     let mainTable = rowDelete.closest('table')
 
     mainTable.removeChild(rowDelete)
+
+    totalPrice -= obj.price
+    calculateTotal()
   })
 
 }
 
 function calculateTotal() {
   let totalPriceColumn = document.querySelector('#total-harga')
-  totalPriceColumn.innerHTML = formatNumberToCurrency(`Rp ${totalPrice}`)
+  totalPriceColumn.innerHTML = 'Rp ' + formatNumberToCurrency(totalPrice)
 }
 
 
 // experimental
 
-function createMenus() {
-  // let menuMinuman = document.querySelector('#menu-minuman')
+function updateOrder(something) {
+  let updateButton = document.querySelector('.update-button')
+  // let medium = document.querySelector('.medium')
+  // let big = document.querySelector('.big')
+  // let tabelRow = extra.closest('tr')
+  updateButton.addEventListener('click', function (event) {
 
-  // let buttonMakanan = document.createElement('#button-makanan')
-  // let buttonMinuman = document.createElement('#button-minuman')
-
-  let buttonMakanan = document.querySelector('#button-makanan')
-  let buttonMinuman = document.querySelector('#button-minuman')
-
-  buttonMakanan.addEventListener('click', function (event) {
-    // console.log('masuk')
-    let rowContainer = document.querySelector('.row-container')
-    let row = menuList.closest('.row')
-    rowContainer.removeChild(row)
-
-    generateCardList(listMakanan)
-  })
-
-  buttonMinuman.addEventListener('click', function (event) {
-    let rowContainer = document.querySelector('.row-container')
-    let row = menuList.closest('.row')
-    rowContainer.removeChild(row)
-
-    generateCardList(listMinuman)
   })
 }
 
+
+// function createMenus() {
+//   // let menuMinuman = document.querySelector('#menu-minuman')
+
+//   // let buttonMakanan = document.createElement('#button-makanan')
+//   // let buttonMinuman = document.createElement('#button-minuman')
+
+//   let buttonMakanan = document.querySelector('#button-makanan')
+//   let buttonMinuman = document.querySelector('#button-minuman')
+
+//   buttonMakanan.addEventListener('click', function (event) {
+//     // console.log('masuk')
+//     let menuList = document.querySelector('.col-xl-3')
+//     let row = menuList.closest('.row')
+//     row.removeChild(menuList)
+
+//     generateCardList(listMakanan)
+//   })
+
+//   buttonMinuman.addEventListener('click', function (event) {
+//     let menuList = document.querySelector('.col-xl-3')
+//     let row = menuList.closest('.row')
+//     row.removeChild(menuList)
+
+//     generateCardList(listMinuman)
+//   })
+// }
+
+
+
+
+// experimental
 
 // function createNewCategoryMenu() {
 //   let menuDiv = document.querySelector('#menu')
@@ -208,6 +206,7 @@ function createMenus() {
 // }
 
 // function callings
+let totalPrice = 0
 let colorCounter = 0
 function generateCardList(items) {
   for (let i = 0; i < items.length; i++) {

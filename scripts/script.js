@@ -50,7 +50,7 @@ function createMenuCard(name, price) {
     itemName.setAttribute('id', `${name}-item`);
     // color changes based on number of cards
     if (cardCounter % 4 == 0) itemName.setAttribute('class', 'text-l font-weight-bold text-primary text-uppercase mb-1');
-    if (cardCounter % 4 == 3) itemName.setAttribute('class', 'text-l font-weight-bold text-sucess text-uppercase mb-1');
+    if (cardCounter % 4 == 3) itemName.setAttribute('class', 'text-l font-weight-bold text-success text-uppercase mb-1');
     if (cardCounter % 4 == 2) itemName.setAttribute('class', 'text-l font-weight-bold text-info text-uppercase mb-1');
     if (cardCounter % 4 == 1) itemName.setAttribute('class', 'text-l font-weight-bold text-warning text-uppercase mb-1');
     itemName.innerHTML = name.split('-').join(' ') // changes every dashes (-) to space ( ) in all item name
